@@ -1,16 +1,20 @@
 import { draftMode } from 'next/headers';
 import { performRequest } from 'lib/datocms';
 
-const homePageQuery = `
-  query HomePage {
-    home {
-      title
-    }
-  }`;
+async function getData() {
+  const { isEnabled } = draftMode();
+  const homePageQuery = `
+    query HomePage {
+      home {
+        title
+      }
+    }`;
+  const res = await performRequest({ query: homePageQuery, includeDrafts: isEnabled, });
+  return res;
+}
 
 export default async function Home() {
-  const { isEnabled } = draftMode();
-  const { home } = await performRequest({ query: homePageQuery, includeDrafts: isEnabled, });
+  const { home } = await getData();
   return (
     <p>{home.title}</p>
   )
