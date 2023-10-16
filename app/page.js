@@ -15,14 +15,16 @@ function getPageRequest(includeDrafts) {
 
 async function getData() {
   const res = await performRequest(getPageRequest());
-  console.log(res);
+  console.log("res", res);
   return res;
 }
 
 export default async function Home() {
   const { isEnabled } = draftMode();
   const pageRequest = getPageRequest({ includeDrafts: isEnabled });
-  const data = await getData(pageRequest);
+  const { data } = await getData(pageRequest);
+
+  console.log(isEnabled);
 
   if (isEnabled) {
     return (
