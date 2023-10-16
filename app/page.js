@@ -15,7 +15,6 @@ function getPageRequest(includeDrafts) {
 
 async function getData() {
   const res = await performRequest(getPageRequest());
-  console.log("res", res);
   return res;
 }
 
@@ -24,9 +23,7 @@ export default async function Home() {
   const pageRequest = getPageRequest({ includeDrafts: isEnabled });
   const data = await getData(pageRequest);
 
-  console.log(isEnabled);
-
-  // if (isEnabled) {
+  if (isEnabled) {
     return (
       <RealtimeHomepageData
         subscription={{
@@ -36,8 +33,8 @@ export default async function Home() {
         }}
       />
     );
-  // }
+  }
 
-  // return <p>{data.home.title}</p>
+  return <p>{data.data.home.title}</p>
 
 }
