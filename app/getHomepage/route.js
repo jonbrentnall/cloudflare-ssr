@@ -14,5 +14,7 @@ export async function getHomepageData() {
 
     const data = await performRequest({ query: homePageQuery, includeDrafts: isEnabled, });
 
+    console.log(isEnabled);
+
     return data;
   }
