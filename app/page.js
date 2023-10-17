@@ -1,6 +1,6 @@
-import { draftMode } from 'next/headers';
 import { performRequest } from 'lib/datocms';
 import RealtimeHomepageData from 'components/Homepage';
+import { draftModeEnabled } from './draftModeEnabled/route';
 
 const homePageQuery = `
   query HomePage {
@@ -19,11 +19,13 @@ async function getData() {
 }
 
 export default async function Home() {
-  const { isEnabled } = draftMode();
-  const pageRequest = getPageRequest({ includeDrafts: isEnabled });
+  const isDraftMode = await draftModeEnabled();
+  console.log("isDraftMode", isDraftMode);
+  const pageRequest = getPageRequest({ includeDrafts: isDraftMode });
   const data = await getData(pageRequest);
 
-  if (isEnabled) {
+
+  if (isDraftMode) {
     return (
       <RealtimeHomepageData
         subscription={{
