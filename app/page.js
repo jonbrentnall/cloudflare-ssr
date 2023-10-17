@@ -2,6 +2,8 @@ import { performRequest } from 'lib/datocms';
 import RealtimeHomepageData from 'components/Homepage';
 import { draftModeEnabled } from './draftModeEnabled/route';
 
+export const runtime = 'edge';
+
 const homePageQuery = `
   query HomePage {
     home {
